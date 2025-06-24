@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频播放</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .video-container {
+            position: relative;
+            padding: 20px;
+        }
+        
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .controls {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .btn {
+            background: #07c160;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background: #06ad56;
+        }
+        
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .video-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 视频播放器</h1>
+        </div>
+        
+        <div class="video-container">
+            <video id="videoPlayer" controls preload="metadata">
+                <source src="de697e1f9c778da863750231f98be726.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+            
+            <div class="controls">
+                <button class="btn" onclick="playVideo()">▶️ 播放</button>
+                <button class="btn" onclick="pauseVideo()">⏸️ 暂停</button>
+                <button class="btn" onclick="toggleFullscreen()">🔍 全屏</button>
+            </div>
+            
+            <div class="info">
+                <p>💡 <strong>使用说明：</strong></p>
+                <ul>
+                    <li>点击视频画面或播放按钮开始播放</li>
+                    <li>支持手势控制：双击全屏，滑动调节音量和进度</li>
+                    <li>在微信中可以直接播放，无需下载</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        
+        function playVideo() {
+            video.play();
+        }
+        
+        function pauseVideo() {
+            video.pause();
+        }
+        
+        function toggleFullscreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+        
+        // 添加视频事件监听
+        video.addEventListener('loadedmetadata', function() {
+            console.log('视频加载完成');
+        });
+        
+        video.addEventListener('error', function(e) {
+            console.error('视频加载失败:', e);
+            alert('视频加载失败，请检查文件路径是否正确');
+        });
+        
+        // 微信环境优化
+        if (navigator.userAgent.toLowerCase().indexOf('micromessenger') > -1) {
+            // 在微信环境中的特殊处理
+            video.setAttribute('webkit-playsinline', 'true');
+            video.setAttribute('playsinline', 'true');
+            video.setAttribute('x5-video-player-type', 'h5');
+            video.setAttribute('x5-video-player-fullscreen', 'true');
+        }
+    </script>
+</body>
+</html>
