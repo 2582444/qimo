@@ -92,10 +92,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>期末秘籍</h1>
-        </div>          <div class="video-container">
+            <h1>期末秘籍</h1>        </div>          <div class="video-container">
             <video id="videoPlayer" controls preload="metadata" poster="">
-                <source src="redpandacompress_de697e1f9c778da863750231f98be726.mp4" type="video/mp4">
+                <source src="https://github.com/2582444/qimo/releases/download/v1.0/redpandacompress_de697e1f9c778da863750231f98be726.mp4" type="video/mp4">
+                <source src="./redpandacompress_de697e1f9c778da863750231f98be726.mp4" type="video/mp4">
                 您的浏览器不支持视频播放。
             </video>
             
@@ -131,15 +131,28 @@
                 video.msRequestFullscreen();
             }
         }
-        
-        // 添加视频事件监听
+          // 添加视频事件监听
         video.addEventListener('loadedmetadata', function() {
             console.log('视频加载完成');
         });
         
         video.addEventListener('error', function(e) {
             console.error('视频加载失败:', e);
-            alert('视频加载失败，请检查文件路径是否正确');
+            console.log('尝试的视频源:', video.currentSrc);
+            // 显示友好的错误信息
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = 'background: #ffebee; color: #c62828; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;';
+            errorDiv.innerHTML = '⚠️ 视频正在加载中，请稍候...<br><small>如果长时间无法播放，请刷新页面重试</small>';
+            video.parentNode.appendChild(errorDiv);
+        });
+        
+        // 检测视频加载状态
+        video.addEventListener('loadstart', function() {
+            console.log('开始加载视频');
+        });
+        
+        video.addEventListener('canplay', function() {
+            console.log('视频可以播放');
         });
         
         // 微信环境优化
