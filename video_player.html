@@ -66,15 +66,13 @@
         .btn:hover {
             background: #06ad56;
         }
-        
-        .info {
+          .info {
             margin-top: 20px;
             padding: 15px;
             background: #f8f9fa;
             border-radius: 8px;
             font-size: 14px;
-            color: #666;
-        }
+            color: #666;        }
         
         @media (max-width: 600px) {
             body {
@@ -95,13 +93,18 @@
     <div class="container">
         <div class="header">
             <h1>🎬 视频播放器</h1>
-        </div>
-        
-        <div class="video-container">
-            <video id="videoPlayer" controls preload="metadata">
-                <source src="de697e1f9c778da863750231f98be726.mp4" type="video/mp4">
+        </div>          <div class="video-container">
+            <video id="videoPlayer" controls preload="metadata" poster="">
+                <source src="redpandacompress_de697e1f9c778da863750231f98be726.mp4" type="video/mp4">
                 您的浏览器不支持视频播放。
             </video>
+            
+            <div class="video-info">
+                <p>🎬 <strong>视频信息：</strong></p>
+                <p>✅ 视频文件已优化压缩，确保快速加载</p>
+                <p>📱 支持微信内直接播放，无需下载</p>
+                <p>🔄 自适应画质，根据网络自动调整</p>
+            </div>
             
             <div class="controls">
                 <button class="btn" onclick="playVideo()">▶️ 播放</button>
